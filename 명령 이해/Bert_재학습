@@ -1,0 +1,17 @@
+다중 레이블 분류
+
+참고
+https://projectlog-eraser.tistory.com/entry/%EB%AA%A8%EB%8D%B8%EB%A7%81-bert
+
+model = 모델 가져오기
+model.cuda() 확인
+
+# 트랜스포머의 AdamW
+optimizer = AdamW(model.parameters(),lr=2e-5, eps=1e-8)
+epochs = 10
+
+total_steps = len(train_dataloader)*epochs
+
+scheduler = get_linear_schedule_woth_warmup(optimizer, num_warmup_steps=0,
+num_training_steps=total_steps)
+
