@@ -1,22 +1,9 @@
 # 🥇 논문 : 2학기 ~ 겨울방학
-
+### :star: 주제 : 자율 주행 로봇의 경로 회피계획 알고리즘
 ### 1. 데이터 셋
 
-- 물체 : COCO <br>
-- 질문 & 대답 : VQA <br>
-- 사람의 동작 해석 : MPII Human Pose Dataset , Human3.6M , LSP
-- 위험 행동 해석 : UCF-Crime Dataset
+- 자율 주행 : KITTI Vision Benchmark Suite
+- 저작권 : Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
 
-### 진행 중
-### 사용자 언어 이해
-- [ ] 1단계 : BERT 분류를 사용한 재학습 과정 데이터와 코드 만드는 중 :tada: <br>
-- [x] 다중 테스크 분류로 한번에 학습 & 예측 코드 작성
-- [x] csv 파일 아직 사용전 `정확도 80이상시 빅데이터 제작 예정`
-- [ ] csv 파일 및 구체화 작성 <br>
-### 행동 예측 분류
-- [ ] : 범죄 행동
-- [ ] : 비정상 행동
-- [ ] : 위험 행동
-- [ ] : 응급 상황
+### 2. 방법론 (이론 정리)
 
-사용자 언어 이해 → 명령에 따른 분석 → 피드백 → 결과 출력
