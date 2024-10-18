@@ -34,12 +34,10 @@
 4. Voronoi Field: 이 방법은 장애물과의 거리를 계산하여 안전한 경로를 생성합니다. 
   좁은 공간에서도 경로를 유지할 수 있는 장점이 있어, 주차나 복잡한 환경에서 유용하게 사용됩니다​.
 </code></pre>
-##
-### :star: 참고 사이트
-- KITTI 데이터셋 사용 : https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file <br><br>
-- Lidar 데이터 시각화 : https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi
 
 ##
 ### 🏴 연구 진행 현황
 ### 1단계 : 3D 바운딩 박스의 대상 검출하기
 Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검출 데이터를 토대로 레이다에 맵핑하기 ✔️
+- 깊이 영상 참고 사이트 : https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi
+- KITTI 연구 대상 사이트 : https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file
