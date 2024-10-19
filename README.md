@@ -1,22 +1,22 @@
 # 🥇 논문 : 2학기 ~ 겨울방학
 ### :star: 주제 : 자율 주행 로봇의 경로 회피계획 알고리즘
-### 1. 데이터 셋
+<h3>1. 데이터 셋</h3>
 
 - 자율 주행 : KITTI Vision Benchmark Suite
 - 저작권 : Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
 
-### 2. 방법론 (이론 정리)
-#### 🥈 깊이 영상은 사용하지 않을 예정 (일반 RGB 사진과 Lidar 데이터만) <br>
+<h3>2. 방법론 (이론 정리)</h3>
+<h4>🥈 깊이 영상은 사용하지 않을 예정 (일반 RGB 사진과 Lidar 데이터만)</h4><br>
 
-1단계 : 움직이는 대상 검출
+**1단계 : 움직이는 대상 검출**
 - 전방 사진 / Lidar 사진 분석 (대상 3D 박스로 검출과 Lidar 사진과의 결합)
 - Lidar 데이터의 3차원 공간 맵핑 (대상 검출 포함)
 
-2단계 : 1차 경로 계획
+**2단계 : 1차 경로 계획**
 - 내가 가는 경로의 설정 (구체적인 좌표값혹은 예상으로 계산), 벡터
 - 검출된 대상을 생각하며 예상 경로 생성
 
-3단계 : 2차 경로 맵핑
+**3단계 : 2차 경로 맵핑**
 - 움직이는 대상을 상대속도를 고려하여 같은 경로, 벡터 생성 (단 무한대로 확장하지 않음)
 - 움직이는 대상의 경로와 자율주행차의 경로 계산, 1차 경로 설계의 보완 개념으로 접근 (즉, 1차 경로는 유지하지만 시간별로 조금씩만 조정하는 느낌)
 - 기본 적으로 미세 회피 경로 계획만 고려하며, 회피 경로가 정지되는 경우는 일단 고려하지 않음 <br>
@@ -39,5 +39,5 @@
 ### 🏴 연구 진행 현황
 ### 1단계 : 3D 바운딩 박스의 대상 검출하기
 Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검출 데이터를 토대로 레이다에 맵핑하기 ✔️
-- 깊이 영상 참고 사이트 : https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi
-- KITTI 연구 대상 사이트 : https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file
+- [깊이 영상 참고 사이트](https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi)
+- [KITTI 연구 대상 사이트](https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file)
