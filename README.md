@@ -41,3 +41,8 @@
 Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검출 데이터를 토대로 레이다에 맵핑하기 ✔️
 - [깊이 영상 참고 사이트](https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi)
 - [KITTI 연구 대상 사이트](https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file)
+
+데이터셋 연구중
+
+https://www.youtube.com/watch?v=F3IEobi7Li4
+
