@@ -44,5 +44,6 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 
 데이터셋 연구중
 
-https://www.youtube.com/watch?v=F3IEobi7Li4
+- [complex-yolov4](https://www.youtube.com/watch?v=F3IEobi7Li4)
+- [YOLO + DeepSORT : 경로 설계](https://www.youtube.com/watch?v=w80cToFgto8)
 
