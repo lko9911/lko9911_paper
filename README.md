@@ -45,5 +45,30 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 데이터셋 연구중
 
 - [complex-yolov4](https://www.youtube.com/watch?v=F3IEobi7Li4)
-- [YOLO + DeepSORT : 경로 설계](https://www.youtube.com/watch?v=w80cToFgto8)
+- [YOLO + DeepSORT : 경로 설계](https://www.youtube.com/watch?v=w80cToFgto8) <br><br>
+##
+### :star: 주제 : 자율 주행 로봇의 경로 회피계획 알고리즘 (2D 전방 이미지 기반 솔류션)
+<h3>1. 데이터 셋</h3>
 
+- 학습 데이터 셋 : Cityspace (픽셀 학습)
+- 테스트 데이터 셋 : KITTI
+
+<h3>2. 방법론 (이론 정리)</h3>
+
+1. 이미지 전처리 (OpenCV를 통한 엣지추출)
+   - 컨투어 선명하게 하기
+2. 1차 경로 계획 (세그먼트 아키텍쳐 와 OpenCV)
+   - U-net + LSTM 아키텍쳐 모델 이용 : Cityspace 픽셀 학습 후 세그먼트 분류 vs DeepLab
+   - 세그먼트로 경로 와 대상 추출 후, 경로 클래스만 표시 (경로는 표시안된 대상을 기준으로 생성)
+   - 경로에서의 자율 주행 로봇의 이동 경로는 OpenCV로 나타내기 (직선으로 표시) / 이때 세그먼트 경로 클래스는 "안전거리"
+3. 대상 검출과 추척및 속도 벡터 계산
+   - YOLO-DeeSORT 파이프라인으로 움직이는 대상을 검출하고 추적 : 1초당 이동거리를 통해 속도 벡터 예상 (OpenCV로 표시)
+   - 예상된 속도 벡터는 그 대상의 이동 경로로 추정하며 벡터가 "안전거리"를 침범했을 떄 1차 경로 직선 경로를 수정
+4. 2차 회피 경로 계획
+   - 1차 경로 (직선)에서 안전거리 침범시 직성 경로를 실시간 수정
+
+실험 예정
+- U-net + LSTM의 IOC
+- U-net과 LSTM과 DeepLab의 비교 (연산 시간과 경로 클래스 검출율, 안전거리 계산)
+- YOLO-DeepSORT의 IOC, 성늘 지표
+- 3,4의 시각화
