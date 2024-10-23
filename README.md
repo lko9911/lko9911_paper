@@ -72,3 +72,6 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 - U-net과 LSTM과 DeepLab의 비교 (연산 시간과 경로 클래스 검출율, 안전거리 계산)
 - YOLO-DeepSORT의 IOC, 성늘 지표
 - 3,4의 시각화
+
+<h3>연구 중</h3>
+1. U-net 재학습 : https://www.youtube.com/watch?v=n4_ZuntLGjg
