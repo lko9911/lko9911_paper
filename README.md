@@ -75,3 +75,5 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 
 <h3>연구 중</h3>
 1. U-net 재학습 : https://www.youtube.com/watch?v=n4_ZuntLGjg
+2. opencv : https://www.youtube.com/watch?v=iRTuCYx6quQ
+
