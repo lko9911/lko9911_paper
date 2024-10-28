@@ -230,7 +230,7 @@ def overlay_masks(original, mask, prediction, num_images=3, alpha=0.5):
 
 # 9. 학습 및 검증 루프
 if __name__ == '__main__':
-    n_epochs = 20
+    n_epochs = 21
     best_val_loss = float('inf')
 
     for epoch in range(n_epochs):
@@ -264,7 +264,7 @@ if __name__ == '__main__':
         print(f"val_loss: {avg_val_loss:.4f}")
 
         # 매 5 에폭마다 시각화
-        if epoch % 5 == 0:
+        if epoch > 0 and epoch % 5 == 0:
             with torch.no_grad():
                 sample_images, sample_labels = next(iter(val_loader))
                 sample_images = sample_images.to(device)
@@ -278,5 +278,6 @@ if __name__ == '__main__':
             best_val_loss = avg_val_loss
             torch.save(model.state_dict(), "best_unet_cityscapes_ss.pth")
             print(f"Best model saved with val_loss: {avg_val_loss:.4f}")
+
 
 
