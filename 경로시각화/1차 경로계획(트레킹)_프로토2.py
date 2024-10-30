@@ -163,7 +163,8 @@ cv2.putText(overlay_image, f'Goal: {goal}', (goal[1] + 10, goal[0] - 10),
             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
 
 # 결과 이미지 출력
-plt.figure(figsize=(10, 10))
+plt.figure(figsize=(10, 5))
 plt.imshow(cv2.cvtColor(overlay_image, cv2.COLOR_BGR2RGB))
-plt.axis('off')  # 축 숨기기
+plt.axis('off')  
 plt.show()
+
