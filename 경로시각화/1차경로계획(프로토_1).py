@@ -18,6 +18,9 @@ def astar(start, goal, grid):
     g_score = {start: 0}
     f_score = {start: heuristic(start, goal)}
 
+    # 대각선 이동을 위한 추가 방향 정의
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]  # 상, 하, 좌, 우, 상좌, 상우, 하좌, 하우
+
     while not open_set.empty():
         current = open_set.get()[1]
 
@@ -29,14 +32,15 @@ def astar(start, goal, grid):
                 current = came_from[current]
             return path[::-1]  # 역순으로 반환
 
-        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:  # 상, 하, 좌, 우
+        for dx, dy in directions:
             neighbor = (current[0] + dx, current[1] + dy)
 
             if 0 <= neighbor[0] < rows and 0 <= neighbor[1] < cols:
                 if grid[neighbor] == 1:  # 장애물인 경우
                     continue
 
-                tentative_g_score = g_score[current] + 1  # 인접 노드까지의 비용
+                # 대각선 이동 비용 조정
+                tentative_g_score = g_score[current] + (1.4 if dx != 0 and dy != 0 else 1)  # 대각선 이동은 비용을 1.4로 설정
                 if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
                     # 경로 업데이트
                     came_from[neighbor] = current
@@ -72,6 +76,8 @@ overlay_image = cv2.addWeighted(image, 0.7, mask_color, 0.3, 0)  # 가중치를 
 
 # 감지된 객체의 경계 상자를 오버레이 이미지에 추가 및 방해물 설정
 obstacle_mask = np.copy(binary_mask)  # 방해물 마스크를 복사하여 업데이트
+padding = 50  # 경계 상자 주변에 추가할 여유 공간 (픽셀)
+
 for result in results:
     boxes = result.boxes.xyxy  # 경계 상자 좌표 (x1, y1, x2, y2)
     class_ids = result.boxes.cls  # 클래스 ID
@@ -90,8 +96,8 @@ for result in results:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
         # 방해물 마스크 업데이트 (감지된 객체를 장애물로 추가)
-        obstacle_mask[y1:y2, x1:x2] = 1  # 장애물 부분을 1로 설정
-
+        obstacle_mask[max(0, y1 - padding):min(obstacle_mask.shape[0], y2 + padding), 
+                       max(0, x1 - padding):min(obstacle_mask.shape[1], x2 + padding)] = 1  # 장애물 부분을 1로 설정
 # 시작점과 목표점 정의
 start = (786, 1200)  # 시작점 (y, x)
 
