@@ -79,4 +79,4 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 2. opencv : https://www.youtube.com/watch?v=iRTuCYx6quQ
 
 <h3>진행 중</h3>
-프로토타입 : 1차 경로 계획 성공, <ins>2차 회피 경로 계획 설정 중</ins>
+프로토 타입 프로젝트 완료 / 논문 쓰면서 일괄적으로 프로그램을 실행시킬 자료 만들기 & GUI 구성(고민중)
