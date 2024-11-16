@@ -1,4 +1,6 @@
-# 1. 필요한 라이브러리 설치 및 임포트
+## U-net_Road_RESNET.py 와 모델이 동일해야 작동 (CityscapesDataset 클래스 동일 적)
+
+# 1. 라이브러리 임포트
 import os
 import cv2
 import torch
@@ -23,7 +25,7 @@ class CityscapesDataset(Dataset):
         self.image_files = sorted(os.listdir(images_dir))
         self.label_files = sorted([
             f for f in os.listdir(labels_dir)
-            if f.endswith('.png')  # color.png만 가져오기
+            if f.endswith('.png')  # color.png만 가져오기 (이부분 수정됨 png만 할 필요 없음음)
         ])
 
         # 이미지와 라벨 수 확인
@@ -71,7 +73,7 @@ val_transform = train_transform
 val_dataset = CityscapesDataset(val_images_dir, val_labels_dir, transform=val_transform)
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, num_workers=2)
 
-# 5. U-Net 모델 정의
+# 5. U-Net 모델 정의 (이전과 돟일 주피터 말고 따로 작성함)
 def conv_block(in_dim, out_dim, act_fn):
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=3, stride=1, padding=1),
@@ -158,10 +160,10 @@ class UnetGenerator(nn.Module):
         out = self.out(up_4)
         return out
 
-# 6. 모델 초기화
-n_classes = 2  # Cityscapes의 클래스 수
-in_channels = 3  # 입력 이미지의 채널 수 (RGB)
-num_filter = 64  # 필터 수
+# 6. 모델 초기화 (고정 할 예정)
+n_classes = 2  
+in_channels = 3 
+num_filter = 64  
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = UnetGenerator(in_channels, n_classes, num_filter).to(device)
@@ -241,7 +243,5 @@ if __name__ == '__main__':
         sample_images = sample_images.to(device)
         sample_labels = sample_labels.to(device)
         sample_outputs = model(sample_images)
-        
-        
         
         overlay_masks(sample_images, sample_labels, sample_outputs)
