@@ -6,7 +6,7 @@
 - 자율 주행 : KITTI Vision Benchmark Suite | cityscapes dataset 사용 ✔️
 - 저작권 : Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
 
-# [Cirtscapes Dataset 출] M. Cordts, M. Omran, S. Ramos, T. Rehfeld, M. Enzweiler, R. Benenson, U. Franke, S. Roth, and B. Schiele, “The Cityscapes Dataset for Semantic Urban Scene Understanding,” in Proc. of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016.
+### [Cirtscapes Dataset 출처] M. Cordts, M. Omran, S. Ramos, T. Rehfeld, M. Enzweiler, R. Benenson, U. Franke, S. Roth, and B. Schiele, “The Cityscapes Dataset for Semantic Urban Scene Understanding,” in Proc. of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016.
 
 <h3>2. 방법론 (이론 정리)</h3>
 <h4>🥈 깊이 영상은 사용하지 않을 예정 (일반 RGB 사진과 Lidar 데이터만)</h4><br>
