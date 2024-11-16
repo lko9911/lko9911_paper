@@ -1,3 +1,5 @@
+# A*알고리즘은 스케치 코드 이후 ChatGPT의 도움을 받음
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
