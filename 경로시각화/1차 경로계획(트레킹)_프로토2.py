@@ -6,55 +6,53 @@ import matplotlib.pyplot as plt
 from queue import PriorityQueue
 from deep_sort_realtime.deepsort_tracker import DeepSort
 import warnings
+
+# 에러 보기 싫어
 warnings.filterwarnings("ignore", category=UserWarning, message="__floordiv__ is deprecated")
 
 
-# A* 알고리즘 관련 함수 정의
+# A* 알고리즘 관련 함수 정의 이전과 동일
 def heuristic(a, b):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])  # Manhattan 거리
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])  
 
 def astar(start, goal, grid):
     rows, cols = grid.shape
     open_set = PriorityQueue()
-    open_set.put((0, start))  # (f_score, point)
+    open_set.put((0, start))  
     came_from = {}
     g_score = {start: 0}
     f_score = {start: heuristic(start, goal)}
 
-    # 대각선 이동을 위한 추가 방향 정의
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
 
     while not open_set.empty():
         current = open_set.get()[1]
 
         if current == goal:
-            # 경로 재구성
             path = []
             while current in came_from:
                 path.append(current)
                 current = came_from[current]
-            return path[::-1]  # 역순으로 반환
+            return path[::-1]  
 
         for dx, dy in directions:
             neighbor = (current[0] + dx, current[1] + dy)
 
             if 0 <= neighbor[0] < rows and 0 <= neighbor[1] < cols:
-                if grid[neighbor] == 1:  # 장애물인 경우
+                if grid[neighbor] == 1:  
                     continue
 
-                # 대각선 이동 비용 조정
                 tentative_g_score = g_score[current] + (1.4 if dx != 0 and dy != 0 else 1)
                 if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                    # 경로 업데이트
                     came_from[neighbor] = current
                     g_score[neighbor] = tentative_g_score
                     f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
                     if neighbor not in [i[1] for i in open_set.queue]:
                         open_set.put((f_score[neighbor], neighbor))
 
-    return []  # 경로가 없는 경우
+    return [] 
 
-# YOLO 모델 로드
+# YOLO 모델 로드 _필수1
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 img_path = "content/test/images/val_image (251).png"
 yolo_model = YOLO("yolov10x.pt")
