@@ -1,4 +1,4 @@
-# 라이브러리 가져오기 
+# 1. 라이브러리 임포트 
 from ultralytics import YOLO
 import cv2
 import torch
@@ -6,9 +6,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from queue import PriorityQueue
 
-# A* 알고리즘 관련 함수 정의
+# 2. A* 알고리즘 관련 함수 정의 _ 이부분은 스케치코드 작성후 Chatgpt의 도움을 받음음
 def heuristic(a, b):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])  # Manhattan 거리
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])  # Manhattan 거리 (연산시간 문제로 유클리드로 하지 않음)
 
 def astar(start, goal, grid):
     rows, cols = grid.shape
@@ -19,7 +19,8 @@ def astar(start, goal, grid):
     f_score = {start: heuristic(start, goal)}
 
     # 대각선 이동을 위한 추가 방향 정의
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]  # 상, 하, 좌, 우, 상좌, 상우, 하좌, 하우
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]  # 상, 하, 좌, 우, 상좌, 상우, 하좌, 하우 (1픽셀 기준으로 계산)
+    ## 1픽셀로 할 필요가 있을까 _ 수정 예정 코드
 
     while not open_set.empty():
         current = open_set.get()[1]
@@ -51,15 +52,14 @@ def astar(start, goal, grid):
 
     return []  # 경로가 없는 경우
 
-# YOLO 모델 로드
+# 3. YOLO 모델 로드 _필수
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 img_path = "content/test/images/val_image (258).png"
 yolo_model = YOLO("yolov10x.pt")
 
-# YOLO 모델로 객체 탐지 (신뢰도 조정)
 results = yolo_model.predict(img_path, imgsz=640, conf=0.5, save=False, show=False)
 
-# 도로 이미지와 마스크 이미지 불러오기
+# 도로 이미지와 마스크 이미지 불러오기 (상대 경로)
 image = cv2.imread('content/test/images/val_image (258).png')
 image_height, image_width = image.shape[:2]
 
@@ -67,11 +67,11 @@ image_height, image_width = image.shape[:2]
 binary_mask = cv2.imread('content/test/labels/val_labels (258).png', cv2.IMREAD_GRAYSCALE)
 binary_mask = (binary_mask == 0).astype(np.uint8)  # 도로 부분은 0, 장애물 부분은 1
 
-# 1. 마스크를 컬러로 변환
+#  마스크를 컬러로 변환
 mask_color = np.zeros_like(image)  # 마스크와 같은 크기의 빈 배열 생성
 mask_color[binary_mask == 0] = [0, 255, 0]  # 도로 부분을 초록색으로 설정
 
-# 2. 원본 이미지와 마스크 이미지를 오버레이
+#  원본 이미지와 마스크 이미지를 오버레이
 overlay_image = cv2.addWeighted(image, 0.7, mask_color, 0.3, 0)  # 가중치를 조정하여 오버레이
 
 # 감지된 객체의 경계 상자를 오버레이 이미지에 추가 및 방해물 설정
@@ -98,14 +98,17 @@ for result in results:
         # 방해물 마스크 업데이트 (감지된 객체를 장애물로 추가)
         obstacle_mask[max(0, y1 - padding):min(obstacle_mask.shape[0], y2 + padding), 
                        max(0, x1 - padding):min(obstacle_mask.shape[1], x2 + padding)] = 1  # 장애물 부분을 1로 설정
+
+# 4. 경로 지정
 # 시작점과 목표점 정의
-start = (786, 1200)  # 시작점 (y, x)
+start = (786, 1200)  # 시작점 (y, x) _ Fixed
 
 # goal 설정: y가 450 이상이고 x가 start와 비슷한 가장 큰 도로 좌표 찾기
 road_coords = [(y, x) for y in range(500, binary_mask.shape[0]) 
                for x in range(binary_mask.shape[1]) 
                if obstacle_mask[y, x] == 0 and abs(x - start[1]) <= 350]
 
+## 예외 처리 (코드 꼬여서 except는 사용안함_수정 예정)
 if road_coords:
     # y 값이 가장 작은 좌표들 중 x 값이 start에 가장 가까운 좌표 선택
      goal = min(road_coords, key=lambda coord: coord[0])
@@ -120,7 +123,7 @@ print(f"Goal Point: {goal}")
 # A* 알고리즘 실행
 path = astar(start, goal, obstacle_mask)
 
-# 경로 시각화 (굵게 표시)
+# 경로 시각화 (굵게 표시, thickness=10)
 if path:
     for i in range(len(path) - 1):
         cv2.arrowedLine(overlay_image, (path[i][1], path[i][0]), (path[i + 1][1], path[i + 1][0]), 
