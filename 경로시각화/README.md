@@ -1,4 +1,5 @@
-## 📖 A* 알고리즘을 사용한 경로 시각화
+## 📖 A* 알고리즘을 사용한 경로 시각화 (U-net 재학습 결과로 예상 경로 보지 않음_mask 이미지로 사용)
+# U-net 모델 연동은 논문 실험 결과에만 적
 
 ![3](https://github.com/user-attachments/assets/693ab0fd-3c6e-42d9-98e1-decba9254b09)
 ### 마스크 위에 그리기 (대상 방해물 지정 x)
