@@ -75,7 +75,7 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
 - [x] : 3,4의 시각화
 
 <h3>참고 영상 (완료✔️)</h3>
-1. U-net 재학습 : https://www.youtube.com/watch?v=n4_ZuntLGjg
+1. U-net 재학습 : https://www.youtube.com/watch?v=n4_ZuntLGjg <br>
 2. opencv : https://www.youtube.com/watch?v=iRTuCYx6quQ
 
 <h3>진행 중</h3>
