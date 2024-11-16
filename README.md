@@ -1,9 +1,9 @@
-# 🥇 논문 : 2학기 ~ 겨울방학
+# 🥇 논문(ASK 2025) : 2학기 ~ 겨울방학 (완료 ✔️)
 ### :star: 주제 : 자율 주행 로봇의 경로 회피계획 알고리즘 
 ### (→ 자율 주행 차량의 회피 경로 계획 시각화로 논문 주제 확정 ✔️)
 <h3>1. 데이터 셋</h3>
 
-- 자율 주행 : KITTI Vision Benchmark Suite
+- 자율 주행 : KITTI Vision Benchmark Suite x | cityscapes dataset 사용 ✔️
 - 저작권 : Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
 
 <h3>2. 방법론 (이론 정리)</h3>
@@ -37,9 +37,9 @@
 </code></pre>
 
 ##
-### 🏴 연구 진행 현황
-### 1단계 : 3D 바운딩 박스의 대상 검출하기
-Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검출 데이터를 토대로 레이다에 맵핑하기 ✔️
+### 🏴 연구 진행 현황 (완료 ✔️)
+### 1단계 : 3D 바운딩 박스의 대상 검출하기 ❌
+Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검출 데이터를 토대로 레이다에 맵핑하기 ❌
 - [깊이 영상 참고 사이트](https://velog.io/@happy_quokka/Sensor-Fusion-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-3.-LiDAR-Projection-%EA%B3%BC%EC%A0%95-%EB%B0%8F-%EA%B5%AC%ED%98%84-Open3D-Mayavi)
 - [KITTI 연구 대상 사이트](https://github.com/kuixu/kitti_object_vis?tab=readme-ov-file)
 
@@ -69,14 +69,14 @@ Lidar 데이터를 2차원 깊이 영상으로 바꾼후 YOLO 검출, 이후 검
    - 1차 경로 (직선)에서 안전거리 침범시 직성 경로를 실시간 수정
 
 실험 예정
-- U-net + LSTM의 IOC
-- U-net과 LSTM과 DeepLab의 비교 (연산 시간과 경로 클래스 검출율, 안전거리 계산)
-- YOLO-DeepSORT의 IOC, 성능 지표
-- 3,4의 시각화
+- [x] : U-net + LSTM의 IOC
+- [x] : U-net과 LSTM과 DeepLab의 비교 (연산 시간과 경로 클래스 검출율, 안전거리 계산)
+- [x] : YOLO-DeepSORT의 IOC, 성능 지표
+- [x] : 3,4의 시각화
 
-<h3>연구 중</h3>
+<h3>참고 영상 (완료✔️)</h3>
 1. U-net 재학습 : https://www.youtube.com/watch?v=n4_ZuntLGjg
 2. opencv : https://www.youtube.com/watch?v=iRTuCYx6quQ
 
 <h3>진행 중</h3>
-프로토 타입 프로젝트 완료 / 논문 쓰면서 일괄적으로 프로그램을 실행시킬 자료 만들기 & GUI 구성(고민중)
+프로토 타입 프로젝트 완료 ✔️
