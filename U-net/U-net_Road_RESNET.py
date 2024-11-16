@@ -1,4 +1,4 @@
-# 1. 필요한 라이브러리 설치 및 임포트
+# 1. 라이브러리  임포트
 import os
 import cv2
 import torch
@@ -9,11 +9,11 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.models as models
 from tqdm import tqdm
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
-import matplotlib.pyplot as plt
+import albumentations as A # albumentations 라이브러리는 사용안해도 됨_파이썬 3.10 이하 에러 (임시)
+from albumentations.pytorch import ToTensorV2 # albumentations 라이브러리는 사용안해도 됨 (임시)
+import matplotlib.pyplot as plt 
 
-# 2. CityscapesDataset 클래스 정의
+# 2. CityscapesDataset 클래스 정의 _ 디렉토리 참조
 class CityscapesDataset(Dataset):
     def __init__(self, images_dir, labels_dir, transform=None):
         self.images_dir = images_dir
@@ -57,7 +57,7 @@ class CityscapesDataset(Dataset):
 
         return image, label.clone().detach().long()
 
-# 3. 데이터셋 경로 설정
+# 3. 데이터셋 경로 설정 (상대 경로 사용 / vs에서 디렉토리 구성 할 것)
 train_images_dir = "content/train/images"
 train_labels_dir = "content/train/labels"
 val_images_dir = "content/val/images"
@@ -67,7 +67,7 @@ val_labels_dir = "content/val/labels"
 train_transform = A.Compose([
     A.Resize(height=256, width=512),  # 이미지 크기 조정
     A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ToTensorV2(),  # albumentations의 ToTensorV2 사용
+    ToTensorV2(),  # albumentations의 ToTensorV2 사용 (임시)
 ])
 val_transform = train_transform
 
@@ -77,7 +77,8 @@ val_dataset = CityscapesDataset(val_images_dir, val_labels_dir, transform=val_tr
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, num_workers=2)
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, num_workers=2)
 
-# Residual Layer
+# 잔차 층 사용용 _ 여기부터는 따로 작성해서 가져옴 (주피터 확인)
+## kaggle cityscapes 일부 참고 (resnet은 내가)
 def residual_layer(in_dim, out_dim, act_fn):
     model = nn.Sequential(
         nn.Conv2d(in_dim, out_dim, kernel_size=3, stride=1, padding=1),
@@ -131,7 +132,7 @@ class UnetGenerator(nn.Module):
 
         # Decoder
         self.decoder_1 = convolution_block_decoder(num_filter * 16, num_filter * 8, act_fn)
-        self.residual_1 = convolution_block_residual(num_filter * 16, num_filter * 8, act_fn)  # 수정됨
+        self.residual_1 = convolution_block_residual(num_filter * 16, num_filter * 8, act_fn)  
         self.decoder_2 = convolution_block_decoder(num_filter * 8, num_filter * 4, act_fn)
         self.residual_2 = convolution_block_residual(num_filter * 8, num_filter * 4, act_fn)
         self.decoder_3 = convolution_block_decoder(num_filter * 4, num_filter * 2, act_fn)
@@ -183,7 +184,7 @@ class UnetGenerator(nn.Module):
         return out
 
 # 6. 모델 초기화
-n_classes = 2  # Cityscapes의 클래스 수
+n_classes = 2  # Cityscapes의 클래스 수 (road이기 때문에 2로 설정 아니면 31 ~37)
 in_channels = 3  # 입력 이미지의 채널 수 (RGB)
 num_filter = 64  # 필터 수
 
@@ -286,7 +287,7 @@ if __name__ == '__main__':
         val_losses.append(avg_val_loss)  # 손실 추가
         print(f"val_loss: {avg_val_loss:.4f}")
 
-        # 매 5 에폭마다 시각화
+        # 매 5 에폭마다 시각화 (에포크 1이상으로 설정 또, epoch == 0일떄 생각)
         
         if epoch % 5 == 0:
             with torch.no_grad():
@@ -297,7 +298,7 @@ if __name__ == '__main__':
                 
                 overlay_masks(sample_images, sample_labels, sample_outputs)
         
-        # 가장 낮은 검증 손실을 가진 모델 저장
+        # 가장 낮은 검증 손실을 가진 모델 저장 (이 부분 변경됨 따로 쓰기)
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
             torch.save(model.state_dict(), "best_unet_cityscapes_ss.pth")
